@@ -1,12 +1,12 @@
 # Essential services for AppFlowy Cloud
 
 services:
-  nginx:
-    restart: on-failure
-    image: nginx
-    ports:
-      - '${NGINX_PORT:-8080}:80'
-      - '${NGINX_TLS_PORT:-8443}:443'
+nginx:
+  restart: on-failure
+  image: nginx
+  ports:
+    - '${NGINX_PORT:-8081}:80'
+    - '${NGINX_TLS_PORT:-8444}:443'
       
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -128,17 +128,7 @@ services:
       ADMIN_FRONTEND_GOTRUE_URL: "${ADMIN_FRONTEND_GOTRUE_URL:-http://gotrue:9999}"
       ADMIN_FRONTEND_APPFLOWY_CLOUD_URL: "${ADMIN_FRONTEND_APPFLOWY_CLOUD_URL:-http://appflowy_cloud:8000}"
 
-  ai:
-    restart: on-failure
-    image: "appflowyinc/appflowy_ai:${APPFLOWY_AI_VERSION:-latest}"
-    ports:
-      - "5001:5001"
-    environment:
-      OPENAI_API_KEY: "${APPFLOWY_AI_OPENAI_API_KEY}"
-      LOCAL_AI_AWS_ACCESS_KEY_ID: "${LOCAL_AI_AWS_ACCESS_KEY_ID}"
-      LOCAL_AI_AWS_SECRET_ACCESS_KEY: "${LOCAL_AI_AWS_SECRET_ACCESS_KEY}"
-      APPFLOWY_AI_SERVER_PORT: "${APPFLOWY_AI_SERVER_PORT}"
-      APPFLOWY_AI_DATABASE_URL: "${APPFLOWY_AI_DATABASE_URL}"
+
 
   appflowy_history:
     restart: on-failure
